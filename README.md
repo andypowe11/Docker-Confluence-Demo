@@ -6,10 +6,16 @@ Mostly taken from https://blog.docker.com/2016/10/dockerizing-confluence/ but wi
 
 ## Usage
 
-./build.sh
+Build the images with
 
-./start.sh
+    ./build.sh
+
+Then deploy the containers with
+
+    ./start.sh
 
 Then browse to http://localhost:8080/ and plug in your licence.
 
-./stop.sh
+Stop and remove the container with
+
+    ./stop.sh
