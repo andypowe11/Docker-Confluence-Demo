@@ -30,48 +30,14 @@ RUN set -x \
     && chown -R daemon:daemon  "${CONF_INSTALL}/logs" \
     && chown -R daemon:daemon  "${CONF_INSTALL}/work" \
     && echo -e                 "\nconfluence.home=$CONF_HOME" >> "${CONF_INSTALL}/confluence/WEB-INF/classes/confluence-init.properties"
-#&& xmlstarlet              ed --inplace \
-#        --delete               "Server/@debug" \
-#        --delete               "Server/Service/Connector/@debug" \
-#        --delete               "Server/Service/Connector/@useURIValidationHack" \
-#        --delete               "Server/Service/Connector/@minProcessors" \
-#        --delete               "Server/Service/Connector/@maxProcessors" \
-#        --delete               "Server/Service/Engine/@debug" \
-#        --delete               "Server/Service/Engine/Host/@debug" \
-#        --delete               "Server/Service/Engine/Host/Context/@debug" \
-#"${CONF_INSTALL}/conf/server.xml"
 
-## bust cache
-#ADD version /version
-#
-## RUN Puppet
-#WORKDIR /
-#COPY Puppetfile /
-#COPY keys/ /keys
-#
-#RUN mkdir -p /root/.ssh/ && \
-#  cp /keys/id_rsa /root/.ssh/id_rsa && \
-#  chmod 400 /root/.ssh/id_rsa && \
-#  touch /root/.ssh/known_hosts && \
-#  ssh-keyscan github.com >> /root/.ssh/known_hosts && \
-#  librarian-puppet install && \
-#  puppet apply --modulepath=/modules - hiera_config=/modules/confluence/hiera.yaml \
-#  --environment=${environment} -e "class { confluence::app': }" && \
-#  rm -rf /modules && \
-#  rm -rf /Puppetfile* && \
-#  rm -rf /root/.ssh && \
-#  rm -rf /keys
-
-#USER daemon:daemon
+USER daemon:daemon
 
 # Expose default HTTP connector port.
 EXPOSE 8090
-
-#VOLUME ["/opt/atlassian/confluence/logs"]
 
 # Set the default working directory as the installation directory.
 WORKDIR /var/atlassian/confluence
 
 # Run Atlassian Confluence as a foreground process by default.
-#CMD ["bash"]
 CMD ["/usr/local/atlassian/confluence/bin/start-confluence.sh", "run"]
