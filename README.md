@@ -10,7 +10,7 @@ Build the images with
 
     ./build.sh
 
-Then deploy the containers with
+Then deploy the ubuntu-confluence container with
 
     ./start.sh
 
